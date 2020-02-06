@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'example_RN_range_slider' do
+  # use_frameworks!
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+      'Core',
+      'DevSupport', # <= ADD THIS LINE
+      'CxxBridge',
+      # 'RCTActionSheet',
+      'RCTAnimation',
+      # 'RCTGeolocation',
+      'RCTImage',
+      # 'RCTLinkingIOS',
+      'RCTNetwork',
+      # 'RCTSettings',
+      'RCTText',
+      # 'RCTVibration',
+      'RCTWebSocket'
+  ]
+
+  # Explicitly include Yoga if you are using RN >= 0.42.0
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "React"
+        target.remove_from_project
+      end
+    end
+  end
+
+end
+
